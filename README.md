@@ -1,7 +1,7 @@
 # Jtech Server Monitoring — EC2 Hardening & CloudWatch Observability
 
 [![Terraform](https://img.shields.io/github/actions/workflow/status/sensi012/Linux-server-hardening-automated-monitoring/terraform.yml?label=terraform&logo=terraform&logoColor=white)](https://github.com/sensi012/Linux-server-hardening-automated-monitoring/actions/workflows/terraform.yml)
-[![IaC: Terraform](https://img.shields.io/badge/IaC-Terraform_1.9-7B42BC?logo=terraform)](https://www.terraform.io/)
+[![IaC: Terraform](https://img.shields.io/badge/IaC-Terraform_1.15-7B42BC?logo=terraform)](https://www.terraform.io/)
 [![Cloud: AWS](https://img.shields.io/badge/Cloud-AWS-FF9900?logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)
 [![Access: SSM](https://img.shields.io/badge/Access-SSM_Session_Manager-1D9E75)](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html)
 
@@ -107,7 +107,7 @@ A server can fail silently — out of memory, disk full — while appearing comp
 | Layer | Service / Tool | Purpose |
 |---|---|---|
 | Compute | AWS EC2 (Amazon Linux 2023) | Application server — t2.micro, free tier eligible |
-| IaC | Terraform 1.9 | All infrastructure declared as code, remote state |
+| IaC | Terraform 1.15 | All infrastructure declared as code, remote state |
 | Access | AWS SSM Session Manager | Shell access — zero open ports, IAM-controlled |
 | Monitoring | AWS CloudWatch + agent | Metrics, logs, alarms, dashboard |
 | Alerting | AWS SNS | Email notification on alarm state changes |
@@ -216,7 +216,7 @@ jtech-server-monitoring/
 ## Prerequisites
 
 - AWS CLI configured (`aws sts get-caller-identity` returns your ARN)
-- [Terraform](https://developer.hashicorp.com/terraform/install) >= 1.9
+- [Terraform](https://developer.hashicorp.com/terraform/install) >= 1.15.0
 - [AWS Session Manager plugin](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html) for the AWS CLI (required for `aws ssm start-session`)
 - Terraform state backend from Project 1 already bootstrapped (S3 bucket + DynamoDB table)
 
