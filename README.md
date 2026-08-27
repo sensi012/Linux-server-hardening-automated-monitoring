@@ -1,6 +1,6 @@
 # Jtech Server Monitoring — EC2 Hardening & CloudWatch Observability
 
-[![Terraform](https://img.shields.io/github/actions/workflow/status/YOUR_USER/jtech-server-monitoring/terraform.yml?label=terraform&logo=terraform&logoColor=white)](https://github.com/YOUR_USER/jtech-server-monitoring/actions/workflows/terraform.yml)
+[![Terraform](https://img.shields.io/github/actions/workflow/status/sensi012/Linux-server-hardening-automated-monitoring/terraform.yml?label=terraform&logo=terraform&logoColor=white)](https://github.com/sensi012/Linux-server-hardening-automated-monitoring/actions/workflows/terraform.yml)
 [![IaC: Terraform](https://img.shields.io/badge/IaC-Terraform_1.9-7B42BC?logo=terraform)](https://www.terraform.io/)
 [![Cloud: AWS](https://img.shields.io/badge/Cloud-AWS-FF9900?logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)
 [![Access: SSM](https://img.shields.io/badge/Access-SSM_Session_Manager-1D9E75)](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html)
@@ -342,19 +342,6 @@ SOURCE '/jtech/ec2/harden'
 | filter @message like /\[/
 | sort @timestamp asc
 ```
-
----
-
-## CI/CD pipeline — `terraform.yml`
-
-Triggers on changes to `terraform/**` only.
-
-| Event | Action |
-|---|---|
-| Pull request to `main` | `terraform plan` → output posted as PR comment |
-| Push to `main` | `terraform apply` (from saved plan file) |
-
-Authentication via OIDC — no long-lived AWS credentials stored in GitHub. Uses a separate IAM role (`AWS_TERRAFORM_ROLE_ARN`) with broader permissions than the application deploy role.
 
 ---
 
