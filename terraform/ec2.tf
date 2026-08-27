@@ -18,7 +18,7 @@ resource "aws_instance" "app" {
   monitoring = true
 
   # Hardening script runs automatically on first boot
-  user_data_base64 = filebase64("${path.module}/scripts/harden.sh")
+  user_data_base64 = filebase64("${path.module}/../scripts/harden.sh")
 
   root_block_device {
     volume_type           = "gp3"
