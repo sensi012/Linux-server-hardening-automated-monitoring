@@ -25,12 +25,13 @@ variable "alert_email" {
   type        = string
 }
 
-
+variable "vpc_id" {
+  description = "VPC ID to deploy into. Use default VPC for now (Project 4 builds custom VPC)."
+  type        = string
+}
 
 variable "tags" {
-  type = map(string)
-  default = {
-    Name        = "jtech-server-monitoring"
-    Environment = "prod"
-  }
-}
+  description = "Default tags to apply to all AWS resources"
+  type        = map(string)
+  default     = {}
+}
