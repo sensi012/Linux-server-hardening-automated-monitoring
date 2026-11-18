@@ -18,7 +18,7 @@ resource "aws_instance" "app" {
   monitoring = true
 
   # Hardening script runs automatically on first boot
-  user_data = filebase64("${path.module}/../scripts/harden.sh")
+  user_data = filebase64("${path.terraform}/../scripts/harden.sh")
 
   root_block_device {
     volume_type           = "gp3"
