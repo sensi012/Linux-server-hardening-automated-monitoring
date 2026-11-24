@@ -81,8 +81,8 @@ sudo find /var/log -name "*.gz" -mtime +7 -delete
 
 ---
 
-## Security: Failed SSH attempts spike
-**Monitoring:** CloudWatch Logs Insights — `/jtech/ec2/auth`
+## Alarm: Failed SSH / auth attempts spike (>= 5 in 5 minutes)
+**Monitoring:** CloudWatch Alarm `jtech-ssh-auth-failures` + Logs Insights (`/jtech/ec2/auth`)
 ```
 fields @timestamp, @message
 | filter @message like /Failed password|Invalid user/

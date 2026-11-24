@@ -34,4 +34,4 @@ variable "tags" {
   description = "Default tags to apply to all AWS resources"
   type        = map(string)
   default     = {}
-}
+}

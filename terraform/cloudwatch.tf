@@ -79,6 +79,33 @@ resource "aws_cloudwatch_metric_alarm" "status_check" {
   dimensions          = { InstanceId = aws_instance.app.id }
 }
 
+# Alarm 5: Failed SSH / auth attempts — surfaces brute-force spikes via SNS
+resource "aws_cloudwatch_log_metric_filter" "ssh_auth_failures" {
+  name           = "${var.project_name}-ssh-auth-failures"
+  log_group_name = aws_cloudwatch_log_group.auth.name
+  pattern        = "?Failed ?Invalid ?refused"
+
+  metric_transformation {
+    name      = "SSHAuthFailures"
+    namespace = "Jtech/EC2"
+    value     = "1"
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "ssh_auth_failures" {
+  alarm_name          = "${var.project_name}-ssh-auth-failures"
+  alarm_description   = "Spike in failed SSH/auth attempts (>= 5 in 5 minutes)"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = 1
+  metric_name         = aws_cloudwatch_log_metric_filter.ssh_auth_failures.metric_transformation[0].name
+  namespace           = aws_cloudwatch_log_metric_filter.ssh_auth_failures.metric_transformation[0].namespace
+  period              = 300
+  statistic           = "Sum"
+  threshold           = 5
+  treat_missing_data  = "notBreaching"
+  alarm_actions       = [aws_sns_topic.alerts.arn]
+}
+
 # ── DASHBOARD ─────────────────────────────────────────────────────────
 resource "aws_cloudwatch_dashboard" "server" {
   dashboard_name = "${var.project_name}-server-health"

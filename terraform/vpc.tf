@@ -48,17 +48,10 @@ resource "aws_route_table_association" "public" {
   route_table_id = aws_route_table.public.id
 }
 
-resource "aws_security_group" "ec2" {
+resource "aws_security_group" "public_subnet" {
   name        = "${var.project_name}-public-subnet-sg"
   description = "Allow inbound HTTPS traffic to public subnet"
   vpc_id      = aws_vpc.main.id
-
-  # ingress {
-  #   from_port   = 443
-  #   to_port     = 443
-  #   protocol    = "tcp"
-  #   cidr_blocks = ["0.0.0.0/0"]
-  # }
 
   egress {
     from_port   = 0

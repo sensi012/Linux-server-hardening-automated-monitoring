@@ -18,11 +18,12 @@ resource "aws_instance" "app" {
   monitoring = true
 
   # Hardening script runs automatically on first boot
-  user_data = filebase64("${path.module}/../scripts/harden.sh")
+  user_data_base64 = filebase64("${path.module}/../scripts/harden.sh")
+
 
   root_block_device {
     volume_type           = "gp3"
-    volume_size           = 20
+    volume_size           = 30
     encrypted             = true # encrypt data at rest
     delete_on_termination = true
   }
@@ -35,7 +36,7 @@ resource "aws_instance" "app" {
 # Security group: NO inbound rules — SSM doesn't need open ports
 resource "aws_security_group" "ec2" {
   name        = "${var.project_name}-ec2-sg"
-  description = "Jtech EC2 — outbound only, SSM access via IAM"
+  description = "Jtech EC2 outbound only, SSM access via IAM"
   vpc_id      = var.vpc_id
 
   # HTTPS outbound: SSM agent, CloudWatch agent, package updates

@@ -1,7 +1,7 @@
 # EC2 must assume this role to use SSM and CloudWatch
 resource "aws_iam_role" "ec2" {
   name        = "${var.project_name}-ec2-instance-role"
-  description = "Role for Jtech EC2 instances — SSM + CloudWatch"
+  description = "Role for Jtech EC2 instances - SSM + CloudWatch"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
